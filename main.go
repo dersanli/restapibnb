@@ -9,7 +9,7 @@ import (
 )
 
 type Message struct {
-	serverTime int16
+	serverTime float64
 }
 
 func main() {
