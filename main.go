@@ -2,11 +2,15 @@ package main
 
 import (
 	_ "bytes"
-	_ "encoding/json"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 )
+
+type Message struct {
+	serverTime int16
+}
 
 func main() {
 	fmt.Println("Starting the application...")
@@ -15,6 +19,14 @@ func main() {
 		fmt.Printf("The HTTP request failed with error %s\n", err)
 	} else {
 		data, _ := ioutil.ReadAll(response.Body)
+
+		var m Message
+		err := json.Unmarshal(data, &m)
+
+		if err != nil {
+			return
+		}
+
 		fmt.Println(string(data))
 	}
 	/*
